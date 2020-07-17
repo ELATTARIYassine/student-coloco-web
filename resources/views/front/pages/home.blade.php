@@ -48,6 +48,77 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <col-lg-12>
+                    <div class="map-container">
+                        <div class="map-frame">
+                        <div id="mapid"></div>
+                    </div>
+                  </div>
+                </col-lg-12>
+            </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+ <!-- Make sure you put this AFTER Leaflet's CSS -->
+
+ <script>
+     axios.get('/api/show-map')
+        .then(function (response) {
+            // handle success
+            var mymap = L.map('mapid').setView([32.339444, -6.360833], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(mymap);
+
+            response.data.forEach(el => {
+                var marker = L.marker([el.latitude, el.longitude]).addTo(mymap);
+                marker.bindPopup(`<center>
+                              <p>
+                                <strong><a href="housings-offers/${el.id}">${el.title}</a></strong>
+                              </p>
+                            </center>
+                            <img style="max-width: -webkit-fill-available;" src="${el.images}"/><br />
+                            <p>${el.address}</p>
+                              `).openPopup();
+            });
+            // console.log(response.data[0].latit);
+            // var list = JSON.parse(response.data);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+        
+ </script>
+@endsection
+
+@section('style')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+<style>
+    .map-container {
+        width: 1090px;
+        height: 500px;
+        margin: 30px;
+        padding-bottom: 10px;
+    }
+
+    .map-frame {
+    border: 2px solid black;
+    height: 100%;
+    }
+
+    #mapid {
+    height: 100%;
+    }
+</style>
 @endsection

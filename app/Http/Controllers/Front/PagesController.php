@@ -82,4 +82,8 @@ class PagesController extends Controller
 
         return redirect(route('front.demands'));
     }
+
+    function showMap(){
+        return Housing::all();
+    }
 }

@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('assets/front/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/css/slicknav.css') }}">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+    @yield('style')
 
     <link rel="stylesheet" href="{{ asset('assets/front/css/style.css') }}">
     <!-- <link rel="stylesheet" href="assets/front/css/responsive.css') }}"> -->
@@ -44,6 +45,7 @@
 @include('front.layout.shared.footer')
 
 <!-- JS here -->
+@yield('script')
 <script src="{{ asset('assets/front/js/vendor/modernizr-3.5.0.min.js') }}"></script>
 <script src="{{ asset('assets/front/js/vendor/jquery-1.12.4.min.js') }}"></script>
 <script src="{{ asset('assets/front/js/popper.min.js') }}"></script>

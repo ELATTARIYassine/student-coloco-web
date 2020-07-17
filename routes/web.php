@@ -34,3 +34,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/demands/save', 'Front\PagesController@save_demand')->name('front.demands.store');
 });
 
+Route::get('/api/show-map', 'Front\PagesController@showMap');
